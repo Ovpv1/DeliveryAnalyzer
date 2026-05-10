@@ -31,6 +31,8 @@ function taxaChuva(clima){
     }
 }
 
+
+// Corrigir esse trecho
 function valorEntregasTotal(entregas){
     let total = 0
     for(let i = 0; i<entregas.length; i++){
