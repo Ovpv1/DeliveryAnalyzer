@@ -1,5 +1,3 @@
-const entregas = []
-
 function calcularTaxaPeso(peso){
     if(peso <= 5){
         return 0
@@ -9,11 +7,11 @@ function calcularTaxaPeso(peso){
     }
 }
 
-function calcularTaxaBairro(bairro,valorFinal){
-    if (bairro == 'n'){
-        return valorFinal*1
+function calcularTaxaBairro(bairro,valorEntrega){
+    if (bairro == 'Registrado'){
+        return valorEntrega*1.1
     } else{
-        return valorFinal*1.1
+        return valorEntrega*1
     }
 }
 
@@ -37,16 +35,44 @@ function valorEntregasTotal(entregas){
     let total = 0
     for(let i = 0; i<entregas.length; i++){
         let entrega = entregas[i]
-        let total = (5 + calcularPrecoDistancia(entrega.distancia) + taxaChuva(entrega.clima) + calcularTaxaPeso(entrega.peso))*calcularTaxaBairro(entrega.bairro)
+        total += (5 + calcularPrecoDistancia(entrega.distancia) + taxaChuva(entrega.clima) + calcularTaxaPeso(entrega.peso))*calcularTaxaBairro(entrega.bairro)
+    }
+    return total
+}
+
+function numEntregas(entregas){
+    return entregas.length
+}
+
+function distanciaTotal(entregas){
+    let somaDistancia = 0
+    for(let i = 0; i<entregas.length; i++){
+        somaDistancia += entregas[i].distancia
+    }
+    return somaDistancia
+}
+
+function recebeBonus(entregas){
+    if (numEntregas(entregas) > 8 || distanciaTotal(entregas) > 40){
+        return true
+    } else{
+        return false
+    }
+}
+
+function pagamentoTotal(entregas){
+    let total = valorEntregasTotal(entregas)
+    if(recebeBonus==true){
+        return total + 25
     }
     return total
 }
 
 
-
+const entregas = []
 
 for(let i = 1; i<=10; i++){
-    let numEntrega = 'ID:'+ i //Faz o cadastro do número da entrega
+    let IdEntrega = 'ID:'+ i //Faz o cadastro do número da entrega
     let veiculo
     let peso
     let clima
@@ -55,7 +81,7 @@ for(let i = 1; i<=10; i++){
 
     //Recebe o dado da distância da entrega
     while(true){
-        distancia = parseFloat(prompt('Qual a distância da entrega? ')).toFixed(1)
+        distancia = parseFloat(prompt('Qual a distância da entrega? '))
         if(isNaN(distancia) || distancia <= 0){
             console.log('Digite um valor válido.\n')
         } else{
@@ -114,13 +140,18 @@ for(let i = 1; i<=10; i++){
         }
     }
 
-
+    if(trajetoDificultoso == 's'){
+        trajetoDificultoso = 'Registrado'
+    } else{
+        trajetoDificultoso = 'Não registrado.'
+    }
     const dados = {
-        cadastro: numEntrega,
+        cadastro: IdEntrega,
         distancia: distancia,
         veiculo: veiculo,
         peso: peso,
-        clima: clima
+        clima: clima,
+        bairro: trajetoDificultoso
     }
 
     entregas.push(dados)
@@ -140,3 +171,11 @@ for(let i = 1; i<=10; i++){
     }
 }
 
+let entregasTotal = numEntregas(entregas)
+let distanciaPercorrida = distanciaTotal(entregas)
+let valorBruto = valorEntregasTotal(entregas)
+let pagamento = pagamentoTotal(entregas)
+
+console.log(`A quantidade de entregas foi de: ${entregasTotal}`)
+console.log(`A distância total percorrida foi de: ${distanciaPercorrida}`)
+console.log(`O valor a ser recebido pelas entregas é de: R$${pagamento}`)
