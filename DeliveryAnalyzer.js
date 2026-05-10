@@ -33,6 +33,8 @@ function taxaChuva(clima){
     }
 }
 
+
+// Corrigir esse trecho
 function valorEntregasTotal(entregas){
     let total = 0
     for(let i = 0; i<entregas.length; i++){
@@ -116,11 +118,11 @@ for(let i = 1; i<=10; i++){
 
 
     const dados = {
-        cadastro: numEntrega,
-        distancia: distancia,
-        veiculo: veiculo,
-        peso: peso,
-        clima: clima
+        Cadastro: numEntrega,
+        Distancia: distancia,
+        Veiculo: veiculo,
+        Peso: peso,
+        Clima: clima
     }
 
     entregas.push(dados)
