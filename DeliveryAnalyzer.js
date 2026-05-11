@@ -1,29 +1,53 @@
-function calcularTaxaPeso(peso){
-    if(peso <= 5){
-        return 0
-    } else{
-        let excedente = peso - 5
-        return excedente*2.5
+function calcularTaxasPeso(entregas){
+    let taxasPeso = 0
+    for(let i = 0; i < entregas.length; i++){
+        let peso = entregas[i].peso
+    
+        if(peso <= 5){
+            taxa += 0
+        } else{
+            let excedente = peso - 5
+            taxa += excedente*2.5
+        }
     }
+    
 }
 
-function calcularTaxaBairro(bairro,valorEntrega){
-    if (bairro == 'Registrado'){
-        return valorEntrega*1.1
-    } else{
-        return valorEntrega*1
+//Correção pendente
+function calcularTaxasBairro(entregas){
+    let taxasBairro = 0
+
+    for(let i = 0; i<entregas.length; i++){
+        let bairro = entregas[i].bairro
+
+        if (bairro == 'Registrado'){
+            taxasBairro = valorEntrega*1.1
+        } else{
+            return valorEntrega*1
+        }
     }
+    
 }
 
-function calcularPrecoDistancia(distancia,veiculo){
-    if (veiculo == 'bicicleta'){
-        return distancia*1.2
-    } else{
-        return distancia*1.8
+
+function calcularPrecosDistancia(entregas){
+    let soma = 0;
+
+    for(let i = 0; i < entregas.length; i++){
+        let veiculo = entregas[i].veiculo
+        let distancia = entregas[i].distancia
+
+        if (veiculo == 'bicicleta'){
+            soma += distancia*1.2
+        } else{
+            soma += distancia*1.8
+        }
     }
+
+    return soma
 }
 
-function taxaChuva(clima){
+function taxaChuva(entregas){
     if(clima == 'chuva'){
         return 3
     } else{
@@ -173,7 +197,7 @@ for(let i = 1; i<=10; i++){
     }
 }
 
-let entregasTotal = numEntregas(entregas)
+/*let entregasTotal = numEntregas(entregas)
 let distanciaPercorrida = distanciaTotal(entregas)
 let valorBruto = valorEntregasTotal(entregas)
 let pagamento = pagamentoTotal(entregas)
@@ -181,3 +205,4 @@ let pagamento = pagamentoTotal(entregas)
 console.log(`A quantidade de entregas foi de: ${entregasTotal}`)
 console.log(`A distância total percorrida foi de: ${distanciaPercorrida}`)
 console.log(`O valor a ser recebido pelas entregas é de: R$${pagamento}`)
+*/
