@@ -83,7 +83,9 @@ function pagamentoTotal(entregas){
 
 const entregas = []
 
-for(let i = 1; i<=10; i++){
+
+let i = 1
+while(true){
     let IdEntrega = 'ID:'+ i //Faz o cadastro do número da entrega
     let veiculo
     let peso
@@ -182,6 +184,7 @@ for(let i = 1; i<=10; i++){
     if(adicionarEntrega == 'n'){
         break
     }
+    i++
 }
 
 let numeroEntregas = numEntregas(entregas)
